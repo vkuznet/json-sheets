@@ -1,6 +1,7 @@
 package sheets
 
 import (
+	"embed"
 	"fmt"
 	"io"
 	"runtime/debug"
@@ -8,6 +9,9 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 )
+
+//go:embed assets/*.md
+var assetsContent embed.FS
 
 var readBuildInfo = debug.ReadBuildInfo
 var fixedCellWidth bool
@@ -29,8 +33,8 @@ OPTIONS
       Set the column cell width (default: 40).
 
 EXAMPLES
-  sheets data.json
-  sheets config.json
+  jsonsheets data.json
+  jsonsheets config.json
 `
 
 func maybeHandleTopLevelOption(args []string, stdout io.Writer) (bool, error) {
@@ -38,9 +42,16 @@ func maybeHandleTopLevelOption(args []string, stdout io.Writer) (bool, error) {
 		return false, nil
 	}
 
+	// load help from embeded static area and present markdown back
+	help := helpText
+	data, err := assetsContent.ReadFile("assets/help.md")
+	if err == nil {
+		help = string(data)
+	}
+
 	switch args[0] {
 	case "-h", "--help", "-help":
-		_, err := io.WriteString(stdout, helpText)
+		_, err := io.WriteString(stdout, help)
 		return true, err
 	case "-v", "--version", "-version":
 		_, err := fmt.Fprintf(stdout, "sheets %s\n", buildVersion())
