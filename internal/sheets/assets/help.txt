@@ -1,7 +1,7 @@
 # JSON viewer in your terminal.
 
 USAGE
-  sheets <file.json>
+  jsonsheets <file.json>
       Launch sheets interactively with a JSON file.
 
 OPTIONS

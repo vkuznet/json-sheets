@@ -10,7 +10,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-//go:embed assets/*.md
+//go:embed assets/*.txt
 var assetsContent embed.FS
 
 var readBuildInfo = debug.ReadBuildInfo
@@ -19,7 +19,7 @@ var fixedCellWidth bool
 const helpText = `JSON viewer in your terminal.
 
 USAGE
-  sheets <file.json>
+  jsonsheets <file.json>
       Launch sheets interactively with a JSON file.
 
 OPTIONS
@@ -44,7 +44,7 @@ func maybeHandleTopLevelOption(args []string, stdout io.Writer) (bool, error) {
 
 	// load help from embeded static area and present markdown back
 	help := helpText
-	data, err := assetsContent.ReadFile("assets/help.md")
+	data, err := assetsContent.ReadFile("assets/help.txt")
 	if err == nil {
 		help = string(data)
 	}
