@@ -39,10 +39,10 @@ func maybeHandleTopLevelOption(args []string, stdout io.Writer) (bool, error) {
 	}
 
 	switch args[0] {
-	case "-h", "--help":
+	case "-h", "--help", "-help":
 		_, err := io.WriteString(stdout, helpText)
 		return true, err
-	case "-v", "--version":
+	case "-v", "--version", "-version":
 		_, err := fmt.Fprintf(stdout, "sheets %s\n", buildVersion())
 		return true, err
 	default:
