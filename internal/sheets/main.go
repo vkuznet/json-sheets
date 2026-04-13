@@ -26,7 +26,7 @@ OPTIONS
       Show the current version.
 
   -w N, --width N
-      Set the column cell width (default: 12).
+      Set the column cell width (default: 40).
 
 EXAMPLES
   sheets data.json
